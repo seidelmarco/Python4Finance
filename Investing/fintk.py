@@ -1,40 +1,8 @@
-from financetoolkit import Toolkit
-from fmpsdk import historical_price_full
+import datetime as dt
 import os
 
-import sys
-import inspect
-
-from pathlib import Path
-
-import time
-
-
-from urllib.request import urlopen
-
-
-import certifi
-import json
-
-import csv
-
-
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
-import plotly.express as px
-import plotly.graph_objects as go
-
-import datetime as dt
-
-from Investing.myutils import tickers_list
-from myutils import connect, sqlengine, sqlengine_pull_from_db
-
-from p5_get_sp500_list import save_sp500_tickers
-from p1add_pricedata_to_database import push_df_to_db_append, pull_df_from_db, push_df_to_db_replace
-
-import pickle
+from financetoolkit import Toolkit
 from tqdm import tqdm
 
 # use the power of a dictionary to loop through several options at once:
@@ -124,11 +92,7 @@ api_key = os.getenv("FMP_API_KEY")
 # print('Data:')
 # print(m)
 
-prices = historical_price_full(
-    apikey=api_key,
-    symbol="AAPL"
-)
-print(prices)
+
 
 def get_fmp_historicaldata(ohlc_attr: str = 'adjclose', reload_sp500=False):
     """
@@ -155,7 +119,7 @@ def get_fmp_historicaldata(ohlc_attr: str = 'adjclose', reload_sp500=False):
     '''
     Variables:
     '''
-    ticker_list= ['DE', 'CMCL', 'AAPL', 'MSFT']#, 'AAPL', 'CVX', 'IMPUY', 'MTNOY', 'MSFT']
+    ticker_list= ['AAPL', 'MSFT', 'AMZN', 'TSLA', 'XOM']#, 'AAPL', 'CVX', 'IMPUY', 'MTNOY', 'MSFT']'DE', 'CMCL',
 
     # Create the toolkit for one or more tickers
     tickers = Toolkit(
