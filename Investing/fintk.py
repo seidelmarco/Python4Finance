@@ -30,17 +30,18 @@ api_key = os.getenv("FMP_API_KEY")
 
 # Create the toolkit for one or more tickers
 #tickers = Toolkit(
-    #tickers=["AAPL", "MSFT", "CVX"],
-    #api_key=api_key,
-   ## start_date='2026-01-26'
+ #   tickers=["AAPL", "MSFT", "CVX", "AMZN", "TSLA"],
+  #  api_key=api_key,
+   # start_date='2026-01-26',
+    #end_date = (dt.datetime.now() - dt.timedelta(days=1)).strftime("%Y-%m-%d")
 #)
 
 # Get some basic financial data
 #income_statement = tickers.get_income_statement()
 
 # a Historical example
-#historical_data = tickers.get_historical_data()
-
+#historical_data = tickers.get_historical_data(period='weekly', return_column='Adj Close', progress_bar=True)
+#print(historical_data)
 #balance = tickers.get_balance_sheet_statement()
 #cashflow = tickers.get_cash_flow_statement()
 
@@ -119,13 +120,13 @@ def get_fmp_historicaldata(ohlc_attr: str = 'adjclose', reload_sp500=False):
     '''
     Variables:
     '''
-    ticker_list= ['AAPL', 'MSFT', 'AMZN', 'TSLA', 'XOM']#, 'AAPL', 'CVX', 'IMPUY', 'MTNOY', 'MSFT']'DE', 'CMCL',
+    ticker_list= ["AAPL", "MSFT", "CVX", "AMZN", "TSLA", "DE", "XOM", "CVS", "CMCL"]#, 'AAPL', 'CVX', 'IMPUY', 'MTNOY', 'MSFT']'DE', 'CMCL',
 
     # Create the toolkit for one or more tickers
     tickers = Toolkit(
         tickers=ticker_list,
         api_key=api_key,
-        start_date='2026-01-04',
+        start_date='2025-01-04',
         end_date = (dt.datetime.now() - dt.timedelta(days=1)).strftime("%Y-%m-%d")
     )
 
@@ -141,11 +142,12 @@ def get_fmp_historicaldata(ohlc_attr: str = 'adjclose', reload_sp500=False):
             # income_statement = tickers.get_income_statement()
             print(ticker)
             # a Historical example
-            df = tickers.get_historical_data(enforce_source='FinancialModelingPrep', period='weekly', return_column='Adj Close', progress_bar=True)
+            df = tickers.get_historical_data(period='weekly', return_column='Adj Close', progress_bar=True)
+            df_income = tickers.get_income_statement(progress_bar=True)
         except Exception as e:
             print(f"Error with {ticker}: {e}")
 
-        print(df)
+        print(df, df_income)
         # an dieser Stelle brauchen wir keinen index setzen, weil 'Date' schon der Index ist df = data.set_index('Date', inplace=True)
         # print(df.index)
 
