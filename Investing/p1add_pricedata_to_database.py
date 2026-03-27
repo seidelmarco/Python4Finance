@@ -12,7 +12,7 @@ import warnings
 from openpyxl import writer
 import openpyxl
 import pandas as pd
-import pandas_datareader.data as pdr
+# import pandas_datareader.data as pdr
 
 from tqdm import tqdm
 
